@@ -42,39 +42,6 @@ python main.py                    # interactive menu
 python main.py --demo             # runs through every feature automatically
 ```
 
-## Free email alerts (optional, for later)
-
-1. Go to your Google Account → Security → 2-Step Verification → App
-   Passwords, and generate one for "Mail".
-2. Set two environment variables (never hardcode secrets in code):
-   ```bash
-   export GJT_EMAIL="you@gmail.com"
-   export GJT_EMAIL_APP_PASSWORD="xxxx xxxx xxxx xxxx"
-   ```
-3. Use menu option 5, or call `alert.send_email_alert(to, jobs)` directly.
-
-This uses Gmail's free SMTP relay — no paid email service needed.
-
-## Roadmap for turning this into a CV project
-
-All of the following are free:
-
-- **Real data**: fill in `scraper.py` for one or two real sources (a
-  sarkari-jobs aggregator, a state PSC site, or India's National Career
-  Service portal). Keep respecting each site's terms/robots.txt.
-- **Persistence**: swap the in-memory tracker for SQLite (`sqlite3` is
-  built into Python — no server, no cost) so data survives restarts.
-- **Automation**: a GitHub Actions workflow (free minutes on public/small
-  private repos) can run the scraper + alert check daily on a cron
-  schedule, with zero hosting cost.
-- **Web UI**: a small Flask or FastAPI app (free, run locally or on a
-  free tier like Render/PythonAnywhere) turning the CLI into a dashboard
-  with saved searches per user.
-- **More DSA**: a graph of jobs linked by shared category/keywords, with
-  BFS/DFS to recommend "related jobs," is a natural next addition if you
-  want to showcase graph algorithms too.
-- **Notifications**: add free push channels like a Telegram bot (free
-  Bot API) as an alternative to email.
 
 ## Notes on the sample data
 
