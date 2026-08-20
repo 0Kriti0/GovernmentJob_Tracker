@@ -6,12 +6,17 @@ Run:
     python main.py            (interactive menu)
     python main.py --demo     (non-interactive walkthrough of every feature)
 """
+import os
 import sys
 from datetime import date
+
+# Ensure project directory is in sys.path for reliable module resolution
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from tracker import JobTracker
 from data_source import load_sample_jobs
 from alert import console_alert, send_email_alert
+
 
 
 def build_tracker():

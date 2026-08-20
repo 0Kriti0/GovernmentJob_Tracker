@@ -93,6 +93,30 @@ class JobTracker:
                 alerts.append(job)
         return alerts
 
+    def peek_all_due_alerts(self, today=None, within_days=7):
+        """
+        Non-destructive preview of due alerts.
+        Returns all still-open jobs closing within `within_days` in order of deadline urgency,
+        without removing any items from the deadline heap.
+        """
+        today = today or date.today()
+        temp_heap = MinHeap()
+        temp_heap._heap = list(self.deadline_heap._heap)
+
+        alerts = []
+        while not temp_heap.is_empty():
+            deadline_ordinal, job_id = temp_heap.peek()
+            deadline = date.fromordinal(deadline_ordinal)
+            days_left = (deadline - today).days
+            if days_left > within_days:
+                break
+            temp_heap.pop_min()
+            job = self.jobs_by_id.get(job_id)
+            if job and job.days_left(today) >= 0:
+                alerts.append(job)
+        return alerts
+
+
     def stats(self):
         return {
             "total_jobs": len(self.jobs_by_id),
